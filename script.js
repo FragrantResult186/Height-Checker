@@ -342,7 +342,8 @@ async function calculateList() {
     }
 
     let results = [];
-    let coordChecks = 0;
+    let totalChecks = 0;
+    const totalOperations = seedList.length * coordinates.length;
 
     for (let i = 0; i < seedList.length && isRunning; i++) {
         const seed = seedList[i];
@@ -350,15 +351,14 @@ async function calculateList() {
         for (let j = 0; j < coordinates.length && isRunning; j++) {
             const { x, z } = coordinates[j];
             const height = await getHeight(seed, x, z);
-            coordChecks++;
+            totalChecks++;
 
             if (checkThreshold(height, operator, threshold)) {
                 results.push(`${seed} (${x}, ${z}) y${height}`);
             }
 
-            // Update progress every 50 coordinate checks or when starting new seed
-            if (coordChecks % 50 === 0 || j === 0) {
-                showResult(`CHECKING ${i + 1}/${seedList.length}\n${results.join('\n')}`);
+            if (totalChecks % 50 === 0) {
+                showResult(`CHECKING ${totalChecks}/${totalOperations}\n${results.join('\n')}`);
                 await new Promise(resolve => setTimeout(resolve, 1));
             }
         }
@@ -380,22 +380,22 @@ async function calculateBruteForce() {
 
     let results = [];
     let currentSeedNum = startSeed;
-    let coordChecks = 0;
+    let totalChecks = 0;
 
     while (isRunning) {
         for (let j = 0; j < coordinates.length && isRunning; j++) {
             const { x, z } = coordinates[j];
             const height = await getHeight(currentSeedNum.toString(), x, z);
-            coordChecks++;
+            totalChecks++;
 
             if (checkThreshold(height, operator, threshold)) {
                 results.push(`${currentSeedNum} (${x}, ${z}) y${height}`);
                 showResult(results.join('\n'));
             }
 
-            // Update progress display every 100 coordinate checks or when switching to new seed
-            if (coordChecks % 100 === 0 || j === 0) {
-                showResult(`CHECKING SEED ${currentSeedNum}\n${results.join('\n')}`);
+            if (totalChecks % 100 === 0) {
+                const coordInfo = coordinates.length > 1 ? ` (${j + 1}/${coordinates.length})` : '';
+                showResult(`CHECKING ${currentSeedNum}${coordInfo}\n${results.join('\n')}`);
                 await new Promise(resolve => setTimeout(resolve, 1));
             }
         }
