@@ -42,13 +42,65 @@
                     <label>SEED</label>
                     <input type="text" id="seed" value="" class="full-width">
                 </div>
+            </div>
+            <div id="coordinateInputs" class="hidden">
                 <div class="input-group">
-                    <label>X</label>
-                    <input type="number" id="x" value="">
+                    <label>COORDINATE MODE</label>
+                    <select id="coordMode">
+                        <option value="single">Single Point</option>
+                        <option value="range">Range</option>
+                        <option value="center">Center + Radius</option>
+                    </select>
                 </div>
-                <div class="input-group">
-                    <label>Z</label>
-                    <input type="number" id="z" value="">
+                <div id="singleCoordInputs">
+                    <div class="input-group">
+                        <label>X</label>
+                        <input type="number" id="x" value="">
+                    </div>
+                    <div class="input-group">
+                        <label>Z</label>
+                        <input type="number" id="z" value="">
+                    </div>
+                </div>
+                <div id="rangeCoordInputs" class="hidden">
+                    <div class="input-group">
+                        <label>X MIN</label>
+                        <input type="number" id="xMin" value="">
+                    </div>
+                    <div class="input-group">
+                        <label>X MAX</label>
+                        <input type="number" id="xMax" value="">
+                    </div>
+                    <div class="input-group">
+                        <label>Z MIN</label>
+                        <input type="number" id="zMin" value="">
+                    </div>
+                    <div class="input-group">
+                        <label>Z MAX</label>
+                        <input type="number" id="zMax" value="">
+                    </div>
+                    <div class="input-group">
+                        <label>STEP SIZE</label>
+                        <input type="number" id="stepSize" value="16" min="1">
+                    </div>
+                </div>
+                <div id="centerCoordInputs" class="hidden">
+                    <div class="input-group">
+                        <label>CENTER X</label>
+                        <input type="number" id="centerX" value="">
+                    </div>
+                    <div class="input-group">
+                        <label>CENTER Z</label>
+                        <input type="number" id="centerZ" value="">
+                    </div>
+                    <div class="input-group">
+                        <label>RADIUS</label>
+                        <input type="number" id="radius" value="100" min="1">
+                    </div>
+                    <div class="input-group">
+                        <label>STEP SIZE</label>
+                        <input type="number" id="centerStepSize" value="16" min="1">
+                    </div>
                 </div>
             </div>
             <div id="thresholdInputs" class="hidden">
@@ -57,20 +109,11 @@
                     <div class="flex">
                         <select id="operator">
                             <option value=">">></option>
-                            <option value="<">
-                                << /option>
+                            <option value="<"><</option>
                             <option value="=">=</option>
                         </select>
                         <input type="number" id="threshold" value="60">
                     </div>
-                </div>
-                <div class="input-group">
-                    <label>X</label>
-                    <input type="number" id="xThreshold" value="">
-                </div>
-                <div class="input-group">
-                    <label>Z</label>
-                    <input type="number" id="zThreshold" value="">
                 </div>
             </div>
             <button id="calculateBtn">CALC</button>
