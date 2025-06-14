@@ -42,6 +42,8 @@
                     <label>SEED</label>
                     <input type="text" id="seed" value="" class="full-width">
                 </div>
+            </div>
+            <div id="coordinateInputs" class="hidden">
                 <div class="input-group">
                     <label>COORDINATE MODE</label>
                     <select id="coordMode">
@@ -113,14 +115,6 @@
                         <input type="number" id="threshold" value="60">
                     </div>
                 </div>
-                <div class="input-group">
-                    <label>X</label>
-                    <input type="number" id="xThreshold" value="">
-                </div>
-                <div class="input-group">
-                    <label>Z</label>
-                    <input type="number" id="zThreshold" value="">
-                </div>
             </div>
             <button id="calculateBtn">CALC</button>
             <button id="stopBtn" class="hidden">STOP</button>
@@ -135,11 +129,6 @@
                     <br>
                     *It does not use cave noise or ravines at all, so it is not suitable for finding low elevations.
                     However, the heights of terrain affected by windswept features are accurate.
-                    <br><br>
-                    <strong>Coordinate Modes:</strong><br>
-                    • Single Point: Check one specific coordinate<br>
-                    • Range: Check all coordinates within X/Z min/max bounds<br>
-                    • Center + Radius: Check coordinates within radius of center point
                 </div>
             </div>
             <div class="author">
