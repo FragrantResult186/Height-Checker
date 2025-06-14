@@ -1,0 +1,199 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 12px;
+    background: #2d2d2d;
+    color: #fff;
+    padding: 20px;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    background: #1a1a1a;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+.input-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 10px;
+}
+
+input, select {
+    padding: 8px;
+    background: #000;
+    color: #fff;
+    border: 1px solid #fff;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 12px;
+    margin-bottom: 8px;
+}
+
+.full-width {
+    width: 100%;
+}
+
+input:focus, select:focus {
+    outline: none;
+    border-color: #0f0;
+}
+
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+button {
+    background: #000;
+    color: #fff;
+    border: 1px solid #fff;
+    padding: 12px 16px;
+    cursor: pointer;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 10px;
+    width: 100%;
+}
+
+button:hover {
+    background: #333;
+}
+
+button:disabled {
+    color: #555;
+    cursor: not-allowed;
+}
+
+.result {
+    background: #000;
+    border: 1px solid #fff;
+    padding: 10px;
+    margin-top: 15px;
+}
+
+.error {
+    background: #000;
+    border: 1px solid #f00;
+    color: #f00;
+    padding: 10px;
+    margin-top: 15px;
+}
+
+.status {
+    color: #0f0;
+    font-size: 7px;
+    margin-top: 5px;
+}
+
+pre {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 20px;
+    white-space: pre-wrap;
+}
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid #555;
+    font-size: 8px;
+}
+
+.info-section {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.info-btn {
+    background: none;
+    border: 1px solid #fff;
+    color: #fff;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    font-size: 12px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.info-btn:hover {
+    background: #333;
+}
+
+.info-content {
+    display: none;
+    position: absolute;
+    bottom: 25px;
+    left: 0;
+    background: #000;
+    border: 1px solid #fff;
+    padding: 10px;
+    width: 460px;
+    z-index: 100;
+    font-size: 11px;
+    line-height: 1.4;
+}
+
+.info-content.active {
+    display: block;
+}
+
+.author {
+    color: #888;
+    text-align: right;
+}
+
+.hidden {
+    display: none;
+}
+
+.flex {
+    display: flex;
+    gap: 10px;
+}
+
+.threshold-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.operator-select {
+    width: 70px;
+    font-size: 12px;
+    text-align: center;
+}
+
+.threshold-input {
+    flex: 1;
+    font-size: 12px;
+}

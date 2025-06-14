@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>MC Height Checker</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>MC Height Checker 118</h1>
+        <div class="input-group">
+            <label>WASM FILE</label>
+            <input type="file" id="wasmFile" accept=".wasm">
+            <div id="wasmStatus" class="status"></div>
+        </div>
+        <div id="mainInputs" class="hidden">
+            <div class="input-group">
+                <label>MODE</label>
+                <select id="mode">
+                    <option value="single">Single</option>
+                    <option value="list">Seed List</option>
+                    <option value="bruteforce">Brute Force</option>
+                </select>
+            </div>
+            <div id="seedListInputs" class="hidden">
+                <div class="input-group">
+                    <label>SEED LIST FILE</label>
+                    <input type="file" id="seedListFile" accept=".txt">
+                    <div id="seedListStatus" class="status"></div>
+                </div>
+            </div>
+            <div id="bruteForceInputs" class="hidden">
+                <div class="input-group">
+                    <label>START SEED</label>
+                    <input type="text" id="startSeed" value="0" class="full-width">
+                </div>
+            </div>
+            <div id="commonInputs" class="hidden">
+                <div class="input-group">
+                    <label>SEED</label>
+                    <input type="text" id="seed" value="" class="full-width">
+                </div>
+                <div class="input-group">
+                    <label>X</label>
+                    <input type="number" id="x" value="">
+                </div>
+                <div class="input-group">
+                    <label>Z</label>
+                    <input type="number" id="z" value="">
+                </div>
+            </div>
+            <div id="thresholdInputs" class="hidden">
+                <div class="input-group">
+                    <label>HEIGHT THRESHOLD</label>
+                    <div class="flex">
+                        <select id="operator">
+                            <option value=">">></option>
+                            <option value="<">
+                                << /option>
+                            <option value="=">=</option>
+                        </select>
+                        <input type="number" id="threshold" value="60">
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label>X</label>
+                    <input type="number" id="xThreshold" value="">
+                </div>
+                <div class="input-group">
+                    <label>Z</label>
+                    <input type="number" id="zThreshold" value="">
+                </div>
+            </div>
+            <button id="calculateBtn">CALC</button>
+            <button id="stopBtn" class="hidden">STOP</button>
+        </div>
+        <div id="output"></div>
+        <div class="footer">
+            <div class="info-section">
+                <button class="info-btn">i</button>
+                <div id="infoContent" class="info-content">
+                    This tool allows you to get the terrain height in Minecraft 1.18+. You will need a wasm file to use
+                    this.
+                    <br>
+                    *It does not use cave noise or ravines at all, so it is not suitable for finding low elevations.
+                    However, the heights of terrain affected by windswept features are accurate.
+                </div>
+            </div>
+            <div class="author">
+                Created by Fragrant_Result_186
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
