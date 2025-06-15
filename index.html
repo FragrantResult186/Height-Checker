@@ -1,18 +1,19 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <meta charset="UTF-8">
     <title>MC Height Checker</title>
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
     <div class="container">
         <h1>MC Height Checker 118</h1>
         <div class="input-group">
             <label>WASM FILE</label>
-            <input type="file" id="wasmFile" accept=".wasm">
+            <div class="file-drop-zone" id="wasmDropZone">
+                <input type="file" id="wasmFile" accept=".wasm">
+                <div class="drop-text" id="dropText">DROP WASM FILE HERE OR CLICK TO SELECT</div>
+            </div>
             <div id="wasmStatus" class="status"></div>
         </div>
         <div id="mainInputs" class="hidden">
@@ -27,7 +28,7 @@
             <div id="seedListInputs" class="hidden">
                 <div class="input-group">
                     <label>SEED LIST FILE</label>
-                    <input type="file" id="seedListFile" accept=".txt">
+                    <input type="file" id="seedListFile" accept=".txt,.csv">
                     <div id="seedListStatus" class="status"></div>
                 </div>
             </div>
@@ -116,27 +117,34 @@
                     </div>
                 </div>
             </div>
+            <div class="progress-container">
+                <div class="progress-bar" id="progressBar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <div class="progress-text" id="progressText"></div>
+                <div class="status-text" id="statusText"></div>
+            </div>
             <button id="calculateBtn">CALC</button>
             <button id="stopBtn" class="hidden">STOP</button>
         </div>
-        <div id="output"></div>
+        <div class="results-section">
+            <div id="results"></div>
+        </div>
         <div class="footer">
             <div class="info-section">
                 <button class="info-btn">i</button>
                 <div id="infoContent" class="info-content">
-                    This tool allows you to get the terrain height in Minecraft 1.18+. You will need a wasm file to use
-                    this.
+                    This tool allows you to get the terrain height in Minecraft 1.18+. You will need a wasm file to use this.
                     <br>
                     *It does not use cave noise or ravines at all, so it is not suitable for finding low elevations.
                     However, the heights of terrain affected by windswept features are accurate.
                 </div>
             </div>
             <div class="author">
-                Created by Fragrant_Result_186
+                Created by <a href="https://github.com/FragrantResult186" target="_blank">Fragrant_Result_186</a>
             </div>
         </div>
     </div>
     <script src="script.js"></script>
 </body>
-
 </html>
