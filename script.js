@@ -1,1 +1,593 @@
-const _0x577023=_0x4246;(function(_0x4b34dc,_0x4c9a46){const _0x4c1fc8=_0x4246,_0x460369=_0x4b34dc();while(!![]){try{const _0x206f09=parseInt(_0x4c1fc8(0xdd))/0x1+parseInt(_0x4c1fc8(0xe4))/0x2+-parseInt(_0x4c1fc8(0x11e))/0x3+-parseInt(_0x4c1fc8(0xb4))/0x4*(-parseInt(_0x4c1fc8(0xf6))/0x5)+-parseInt(_0x4c1fc8(0x131))/0x6*(parseInt(_0x4c1fc8(0x112))/0x7)+-parseInt(_0x4c1fc8(0x10b))/0x8*(parseInt(_0x4c1fc8(0x103))/0x9)+-parseInt(_0x4c1fc8(0xd0))/0xa*(-parseInt(_0x4c1fc8(0x104))/0xb);if(_0x206f09===_0x4c9a46)break;else _0x460369['push'](_0x460369['shift']());}catch(_0x3ea7c5){_0x460369['push'](_0x460369['shift']());}}}(_0x3527,0x61595));let wasmModule=null,cb=null,provider=null,currentSeed=null,seedList=[],isRunning=![],seedResults=new Map();document[_0x577023(0x129)](_0x577023(0x127),()=>{const _0x1d8a4f=_0x577023,_0x20a68b=document['getElementById'](_0x1d8a4f(0xec)),_0x43f018=document[_0x1d8a4f(0xc5)](_0x1d8a4f(0xde));_0x20a68b[_0x1d8a4f(0x129)](_0x1d8a4f(0xe8),handleWasmFile),document['getElementById'](_0x1d8a4f(0xc2))[_0x1d8a4f(0x129)](_0x1d8a4f(0xe8),updateInputs),document[_0x1d8a4f(0xc5)]('coordMode')[_0x1d8a4f(0x129)](_0x1d8a4f(0xe8),updateCoordInputs),document[_0x1d8a4f(0xc5)](_0x1d8a4f(0xab))[_0x1d8a4f(0x129)]('change',handleSeedListFile),document[_0x1d8a4f(0xc5)]('calculateBtn')[_0x1d8a4f(0x129)](_0x1d8a4f(0xa9),calculate),document[_0x1d8a4f(0xc5)]('stopBtn')[_0x1d8a4f(0x129)]('click',stopCalc),document[_0x1d8a4f(0x120)](_0x1d8a4f(0xf5))[_0x1d8a4f(0x129)](_0x1d8a4f(0xa9),toggleInfo),_0x43f018['addEventListener'](_0x1d8a4f(0x135),_0x115e3b=>{const _0x423286=_0x1d8a4f;_0x115e3b['preventDefault'](),_0x43f018[_0x423286(0xcf)]['add'](_0x423286(0xa7));}),_0x43f018['addEventListener'](_0x1d8a4f(0xcd),()=>{const _0x26bdd4=_0x1d8a4f;_0x43f018[_0x26bdd4(0xcf)][_0x26bdd4(0xe0)]('drag-over');}),_0x43f018[_0x1d8a4f(0x129)](_0x1d8a4f(0xaa),_0x337756=>{const _0x922ffd=_0x1d8a4f;_0x337756[_0x922ffd(0xe2)](),_0x43f018[_0x922ffd(0xcf)]['remove'](_0x922ffd(0xa7));const _0x668122=_0x337756['dataTransfer'][_0x922ffd(0xdc)];_0x668122[_0x922ffd(0x100)]>0x0&&_0x668122[0x0][_0x922ffd(0xce)][_0x922ffd(0x12b)](_0x922ffd(0x12a))&&(_0x20a68b[_0x922ffd(0xdc)]=_0x668122,handleWasmFile({'target':{'files':_0x668122}}));}),document['addEventListener']('click',_0x51f402=>{const _0x513901=_0x1d8a4f,_0x298b64=document[_0x513901(0xc5)]('infoContent'),_0x5173bc=document[_0x513901(0x120)]('.info-btn');!_0x5173bc[_0x513901(0xf1)](_0x51f402['target'])&&!_0x298b64[_0x513901(0xf1)](_0x51f402[_0x513901(0xc3)])&&_0x298b64[_0x513901(0xcf)][_0x513901(0xe0)](_0x513901(0x11a));});});async function handleWasmFile(_0x301ae3){const _0x27a94b=_0x577023,_0x3f5dca=_0x301ae3[_0x27a94b(0xc3)][_0x27a94b(0xdc)][0x0];if(!_0x3f5dca)return;if(!_0x3f5dca[_0x27a94b(0xce)]['endsWith']('.wasm')){showError('WASM\x20FILE\x20ONLY');return;}const _0x45bc80=document['getElementById']('wasmStatus'),_0x1f13b9=document[_0x27a94b(0xc5)](_0x27a94b(0x124));_0x45bc80['textContent']=_0x27a94b(0x11f);try{const _0x802c28=await _0x3f5dca[_0x27a94b(0xfc)]();wasmModule=await WebAssembly[_0x27a94b(0xa2)](_0x802c28),cb=createCb(wasmModule),_0x45bc80[_0x27a94b(0x116)]=_0x27a94b(0xb2),_0x1f13b9[_0x27a94b(0x116)]=_0x3f5dca[_0x27a94b(0xce)],document['getElementById'](_0x27a94b(0xde))[_0x27a94b(0xcf)]['add'](_0x27a94b(0x133)),document[_0x27a94b(0xc5)](_0x27a94b(0xc0))[_0x27a94b(0xcf)]['remove'](_0x27a94b(0xb9)),updateInputs();}catch(_0x121b08){_0x45bc80['textContent']=_0x27a94b(0xc1)+_0x121b08[_0x27a94b(0xd9)],console[_0x27a94b(0x121)](_0x121b08);}}async function handleSeedListFile(_0x3aee9d){const _0x327f30=_0x577023,_0x189ee4=_0x3aee9d[_0x327f30(0xc3)][_0x327f30(0xdc)][0x0];if(!_0x189ee4)return;if(!_0x189ee4['name'][_0x327f30(0x12b)](_0x327f30(0xcb))&&!_0x189ee4['name']['endsWith'](_0x327f30(0xed))){showError(_0x327f30(0xd7));return;}const _0x484e9d=document[_0x327f30(0xc5)]('seedListStatus');_0x484e9d[_0x327f30(0x116)]=_0x327f30(0x11f);try{const _0x525157=await _0x189ee4['text']();seedList=_0x525157[_0x327f30(0xd2)]('\x0a')[_0x327f30(0x10d)](_0x11a077=>_0x11a077[_0x327f30(0x118)]())['filter'](_0x3b8e5f=>_0x3b8e5f),_0x484e9d[_0x327f30(0x116)]=_0x327f30(0xe9)+seedList[_0x327f30(0x100)]+_0x327f30(0xf3),updateInputs();}catch(_0x509c13){_0x484e9d[_0x327f30(0x116)]=_0x327f30(0xc1)+_0x509c13[_0x327f30(0xd9)],console[_0x327f30(0x121)](_0x509c13);}}function updateInputs(){const _0xf03519=_0x577023,_0x1f52d2=document[_0xf03519(0xc5)](_0xf03519(0xc2))['value'];document[_0xf03519(0xc5)](_0xf03519(0xda))[_0xf03519(0xcf)][_0xf03519(0xfd)](_0xf03519(0xb9),_0x1f52d2!==_0xf03519(0xcc)),document['getElementById'](_0xf03519(0x108))[_0xf03519(0xcf)][_0xf03519(0xfd)](_0xf03519(0xb9),_0x1f52d2!==_0xf03519(0xb3)),document[_0xf03519(0xc5)](_0xf03519(0x105))['classList'][_0xf03519(0xfd)](_0xf03519(0xb9),_0x1f52d2!=='single'),document[_0xf03519(0xc5)]('coordinateInputs')[_0xf03519(0xcf)][_0xf03519(0xe0)](_0xf03519(0xb9)),document[_0xf03519(0xc5)]('thresholdInputs')[_0xf03519(0xcf)][_0xf03519(0xfd)](_0xf03519(0xb9),_0x1f52d2===_0xf03519(0x111)),updateCoordInputs();}function _0x4246(_0xb20c15,_0x40aac6){const _0x352736=_0x3527();return _0x4246=function(_0x424655,_0xc37d2e){_0x424655=_0x424655-0xa1;let _0x1ac25a=_0x352736[_0x424655];return _0x1ac25a;},_0x4246(_0xb20c15,_0x40aac6);}function updateCoordInputs(){const _0x584832=_0x577023,_0x4d851c=document[_0x584832(0xc5)]('mode')['value'],_0x28300d=document['getElementById']('coordMode')[_0x584832(0xbb)];_0x4d851c===_0x584832(0x111)?(document[_0x584832(0xc5)](_0x584832(0x136))[_0x584832(0xbb)]=_0x584832(0x111),document[_0x584832(0xc5)](_0x584832(0x136))[_0x584832(0xb8)]=!![],document[_0x584832(0xc5)](_0x584832(0xc4))[_0x584832(0xcf)][_0x584832(0xe0)](_0x584832(0xb9)),document[_0x584832(0xc5)](_0x584832(0xea))[_0x584832(0xcf)][_0x584832(0xdb)](_0x584832(0xb9)),document['getElementById'](_0x584832(0xae))[_0x584832(0xcf)][_0x584832(0xdb)]('hidden')):(document[_0x584832(0xc5)](_0x584832(0x136))[_0x584832(0xb8)]=![],document[_0x584832(0xc5)](_0x584832(0xc4))[_0x584832(0xcf)][_0x584832(0xfd)]('hidden',_0x28300d!==_0x584832(0x111)),document['getElementById'](_0x584832(0xea))['classList'][_0x584832(0xfd)](_0x584832(0xb9),_0x28300d!==_0x584832(0x132)),document[_0x584832(0xc5)](_0x584832(0xae))[_0x584832(0xcf)][_0x584832(0xfd)]('hidden',_0x28300d!==_0x584832(0x113)));}function createCb(_0x2011f8){const _0x122c57=_0x577023;class _0x4785da{constructor(_0x576635,_0x4f6d83,_0x1f8be9=![]){const _0x3aa583=_0x4246;this[_0x3aa583(0x10a)]=_0x576635|0x0,this['high']=_0x4f6d83|0x0,this[_0x3aa583(0xbf)]=!!_0x1f8be9;}static [_0x122c57(0xf8)]=_0x2c3dd7=>{const _0x4bea32=BigInt(_0x2c3dd7);return new _0x4785da(Number(_0x4bea32&0xffffffffn),Number(_0x4bea32>>0x20n));};}const _0x24bd89={'__wbindgen_placeholder__':{'__wbindgen_json_parse':()=>0x0,'__wbindgen_object_drop_ref':()=>{},'__wbindgen_json_serialize':()=>{},'__wbindgen_throw':()=>{}}},_0xf3b0de=new WebAssembly[(_0x122c57(0xf9))](_0x2011f8,_0x24bd89)['exports'],_0x1365d8=()=>new Int32Array(_0xf3b0de[_0x122c57(0xd3)][_0x122c57(0x117)]);class _0x2b9478{constructor(_0x45e3e8,_0x478d94,_0x3a653a,_0x3c9400,_0x4a749b,_0x3ee473){const _0x43a48c=_0x122c57;this['ptr']=_0xf3b0de[_0x43a48c(0xd4)](_0x45e3e8,_0x478d94,_0x3a653a,_0x3c9400,_0x4a749b!=null,_0x4a749b||0x0,_0x3ee473);}[_0x122c57(0xd1)]=()=>{const _0x118a5e=_0x122c57;this[_0x118a5e(0x126)]&&(_0xf3b0de[_0x118a5e(0x123)](this[_0x118a5e(0x126)]),this[_0x118a5e(0x126)]=0x0);};}class _0x3654fc{constructor(_0x3deef8){const _0x24f4c3=_0x122c57;this[_0x24f4c3(0x126)]=_0xf3b0de[_0x24f4c3(0xee)](_0x3deef8[_0x24f4c3(0x126)]);}['getSurfaceArea'](_0x4ce248,_0x3866ec,_0x4742ee,_0x14daef,_0x2dfa12,_0x191e22,_0x198c71){const _0x39bc48=_0x122c57,_0x1a2e0f=_0xf3b0de['__wbindgen_add_to_stack_pointer'](-0x10),_0x1eae61={'oceanFloor':0x2,'worldSurface':0x1,'caveDepth':0x3,'bottom':0x4,'depth0':0x5},_0x527697={'fastApproximate':0x1,'enhancedNoCaves':0x2,'enhanced':0x3,'topmostAccurate':0x4};_0xf3b0de[_0x39bc48(0x119)](_0x1a2e0f,this[_0x39bc48(0x126)],_0x4ce248,_0x3866ec,_0x4742ee,_0x14daef,_0x2dfa12,_0x1eae61[_0x191e22]||0x2,_0x527697[_0x198c71]||0x2);const _0x5b3037=_0x1365d8(),_0x4aaca5=_0x5b3037[_0x1a2e0f/0x4],_0x6c6875=_0x5b3037[_0x1a2e0f/0x4+0x1],_0xdab4d1=new Int32Array(_0xf3b0de[_0x39bc48(0xd3)][_0x39bc48(0x117)],_0x4aaca5,_0x6c6875)['slice']();return _0xf3b0de['__wbindgen_free'](_0x4aaca5,_0x6c6875*0x4,0x4),_0xf3b0de['__wbindgen_add_to_stack_pointer'](0x10),_0xdab4d1;}[_0x122c57(0xd1)]=()=>{const _0x1118da=_0x122c57;this['ptr']&&(_0xf3b0de[_0x1118da(0x10f)](this['ptr']),this[_0x1118da(0x126)]=0x0);};}return{'Long':_0x4785da,'createBiomeProvider':({seed:_0x129e86,version:_0x2cce2f,config:_0x38deed})=>{const _0x561512=_0x122c57,_0x1cabd1=new _0x2b9478(_0x129e86['low'],_0x129e86[_0x561512(0x101)],0x2,_0x2cce2f,_0x38deed[_0x561512(0xbd)],_0x38deed['biomeSize']),_0x1233ce=new _0x3654fc(_0x1cabd1);return{'getSurfaceArea':(..._0x13f5ff)=>_0x1233ce[_0x561512(0xb6)](..._0x13f5ff),'free':()=>_0x1233ce[_0x561512(0xd1)]()};}};}async function getHeight(_0x380fd6,_0x171b42,_0x2b1315){const _0x20f82c=_0x577023;currentSeed!==_0x380fd6&&(provider?.[_0x20f82c(0xd1)](),provider=cb[_0x20f82c(0xa4)]({'version':0x27e2,'config':{},'seed':cb[_0x20f82c(0xbe)][_0x20f82c(0xf8)](_0x380fd6)}),currentSeed=_0x380fd6);const _0x1b7aaf=_0x171b42>>0x2,_0x1e0771=_0x2b1315>>0x2,_0x2ebb95=new Int32Array(provider[_0x20f82c(0xb6)](_0x1b7aaf,_0x1e0771,0x1,0x1,0x1,'oceanFloor',_0x20f82c(0x12d))['buffer']);return _0x2ebb95[0x0];}function checkThreshold(_0x4cba64,_0x37f8e9,_0x3a63be){switch(_0x37f8e9){case'>':return _0x4cba64>_0x3a63be;case'<':return _0x4cba64<_0x3a63be;case'=':return _0x4cba64===_0x3a63be;default:return![];}}function clearErrors(){const _0x3026a0=_0x577023;document[_0x3026a0(0xf0)]('input.error,\x20select.error')['forEach'](_0x3635e3=>{const _0x4c555f=_0x3026a0;_0x3635e3[_0x4c555f(0xcf)][_0x4c555f(0xe0)](_0x4c555f(0x121));});}function markError(_0x569cca){const _0x157d73=_0x577023,_0x4858f5=document[_0x157d73(0xc5)](_0x569cca);_0x4858f5&&_0x4858f5[_0x157d73(0xcf)][_0x157d73(0xdb)]('error');}function getCoordinates(){const _0x1c4556=_0x577023;clearErrors();const _0x10e00b=document[_0x1c4556(0xc5)](_0x1c4556(0x136))['value'];if(_0x10e00b===_0x1c4556(0x111)){const _0x112e99=parseInt(document[_0x1c4556(0xc5)]('x')[_0x1c4556(0xbb)]),_0x461dad=parseInt(document['getElementById']('z')[_0x1c4556(0xbb)]);if(isNaN(_0x112e99))return markError('x'),null;if(isNaN(_0x461dad))return markError('z'),null;return[{'x':_0x112e99,'z':_0x461dad}];}else{if(_0x10e00b===_0x1c4556(0x132)){const _0x137bc8=parseInt(document[_0x1c4556(0xc5)](_0x1c4556(0x122))[_0x1c4556(0xbb)]),_0x37fd74=parseInt(document[_0x1c4556(0xc5)](_0x1c4556(0xa8))[_0x1c4556(0xbb)]),_0x22bc55=parseInt(document[_0x1c4556(0xc5)](_0x1c4556(0xe1))[_0x1c4556(0xbb)]),_0x3ab9c7=parseInt(document['getElementById']('zMax')['value']),_0x48e112=parseInt(document[_0x1c4556(0xc5)]('stepSize')[_0x1c4556(0xbb)])||0x10;let _0x21f5ef=![];isNaN(_0x137bc8)&&(markError(_0x1c4556(0x122)),_0x21f5ef=!![]);isNaN(_0x37fd74)&&(markError(_0x1c4556(0xa8)),_0x21f5ef=!![]);isNaN(_0x22bc55)&&(markError(_0x1c4556(0xe1)),_0x21f5ef=!![]);isNaN(_0x3ab9c7)&&(markError(_0x1c4556(0xc6)),_0x21f5ef=!![]);if(_0x21f5ef)return null;const _0x17a882=[];for(let _0x5c2cf5=_0x137bc8;_0x5c2cf5<=_0x37fd74;_0x5c2cf5+=_0x48e112){for(let _0x42d191=_0x22bc55;_0x42d191<=_0x3ab9c7;_0x42d191+=_0x48e112){_0x17a882[_0x1c4556(0xd5)]({'x':_0x5c2cf5,'z':_0x42d191});}}return _0x17a882;}else{if(_0x10e00b===_0x1c4556(0x113)){const _0x4e67ba=parseInt(document[_0x1c4556(0xc5)](_0x1c4556(0xa5))[_0x1c4556(0xbb)]),_0x574167=parseInt(document[_0x1c4556(0xc5)]('centerZ')[_0x1c4556(0xbb)]),_0xae831e=parseInt(document['getElementById'](_0x1c4556(0x115))[_0x1c4556(0xbb)])||0x64,_0x1132e2=parseInt(document[_0x1c4556(0xc5)]('centerStepSize')['value'])||0x10;let _0x33ce09=![];isNaN(_0x4e67ba)&&(markError(_0x1c4556(0xa5)),_0x33ce09=!![]);isNaN(_0x574167)&&(markError(_0x1c4556(0xc7)),_0x33ce09=!![]);if(_0x33ce09)return null;const _0x4d5fad=[];for(let _0x184140=_0x4e67ba-_0xae831e;_0x184140<=_0x4e67ba+_0xae831e;_0x184140+=_0x1132e2){for(let _0x55a636=_0x574167-_0xae831e;_0x55a636<=_0x574167+_0xae831e;_0x55a636+=_0x1132e2){const _0x225834=Math[_0x1c4556(0x10e)]((_0x184140-_0x4e67ba)**0x2+(_0x55a636-_0x574167)**0x2);_0x225834<=_0xae831e&&_0x4d5fad[_0x1c4556(0xd5)]({'x':_0x184140,'z':_0x55a636});}}return _0x4d5fad;}}}return null;}function updateProgress(_0x592e56,_0x1e57d7,_0x343008=''){const _0x5c5d9a=_0x577023,_0xed84f=_0x592e56/_0x1e57d7*0x64;document[_0x5c5d9a(0xc5)](_0x5c5d9a(0xfb))['style'][_0x5c5d9a(0x106)]=_0xed84f+'%',document[_0x5c5d9a(0xc5)](_0x5c5d9a(0xd8))[_0x5c5d9a(0x116)]=_0x343008||_0x592e56+'/'+_0x1e57d7+'\x20('+_0xed84f['toFixed'](0x1)+'%)',document[_0x5c5d9a(0xc5)](_0x5c5d9a(0x109))[_0x5c5d9a(0x116)]='',document[_0x5c5d9a(0xc5)](_0x5c5d9a(0x109))[_0x5c5d9a(0x134)]=_0x5c5d9a(0x130),document[_0x5c5d9a(0xc5)](_0x5c5d9a(0xef))[_0x5c5d9a(0x107)]['display']='block';}function showStatus(_0x246d63,_0x33b1d3=![]){const _0x58434a=_0x577023;document[_0x58434a(0xc5)]('progressBar')[_0x58434a(0x107)][_0x58434a(0xa1)]=_0x58434a(0xfe),document[_0x58434a(0xc5)](_0x58434a(0xd8))['textContent']='';const _0x2ade81=document[_0x58434a(0xc5)](_0x58434a(0x109));_0x2ade81[_0x58434a(0x116)]=_0x246d63,_0x2ade81[_0x58434a(0x134)]=_0x33b1d3?_0x58434a(0xd6):'status-text';}function addSeedResult(_0xd6bbbf,_0x30087c){const _0x51513e=_0x577023;!seedResults[_0x51513e(0x125)](_0xd6bbbf)&&seedResults[_0x51513e(0xff)](_0xd6bbbf,[]),seedResults['get'](_0xd6bbbf)['push'](..._0x30087c),updateResultsDisplay();}function updateResultsDisplay(){const _0x3987ce=_0x577023,_0x5b8733=document['getElementById'](_0x3987ce(0xf7));let _0x14907e='';for(const [_0x229544,_0x5c6315]of seedResults){_0x14907e+=_0x3987ce(0xa6),_0x14907e+=_0x3987ce(0xf4)+_0x229544+'\x27)\x22>'+_0x229544+'</div>',_0x14907e+=_0x3987ce(0xf2);for(const _0x277200 of _0x5c6315){const _0x3e8d68=_0x3987ce(0xfa)+_0x277200['x']+'\x20'+_0x277200['y']+'\x20'+_0x277200['z'];_0x14907e+=_0x3987ce(0x11c)+_0x3e8d68+'\x27)\x22>',_0x14907e+='('+_0x277200['x']+',\x20'+_0x277200['z']+')\x20y'+_0x277200['y'],_0x14907e+=_0x3987ce(0x110);}_0x14907e+=_0x3987ce(0xaf);}_0x5b8733[_0x3987ce(0xb1)]=_0x14907e;}function copyToClipboard(_0x336908){const _0x3231e8=_0x577023;navigator[_0x3231e8(0xeb)][_0x3231e8(0xca)](_0x336908)[_0x3231e8(0x12c)](()=>{const _0xa80325=_0x3231e8,_0x5146c7=document[_0xa80325(0xbc)](_0xa80325(0x12f));_0x5146c7[_0xa80325(0xbb)]=_0x336908,document[_0xa80325(0xe5)][_0xa80325(0x128)](_0x5146c7),_0x5146c7[_0xa80325(0xad)](),document[_0xa80325(0xa3)](_0xa80325(0x10c)),document[_0xa80325(0xe5)][_0xa80325(0xc9)](_0x5146c7);});}async function calculate(){const _0x264d65=_0x577023;if(!cb){showStatus('UPLOAD\x20WASM\x20FIRST',!![]);return;}const _0x31c05c=document['getElementById']('mode')[_0x264d65(0xbb)];isRunning=!![],seedResults[_0x264d65(0x137)](),document[_0x264d65(0xc5)]('calculateBtn')[_0x264d65(0xcf)][_0x264d65(0xdb)](_0x264d65(0xb9)),document[_0x264d65(0xc5)](_0x264d65(0x11d))['classList'][_0x264d65(0xe0)](_0x264d65(0xb9)),document[_0x264d65(0xc5)]('results')[_0x264d65(0xb1)]='';try{if(_0x31c05c===_0x264d65(0x111))await calculateSingle();else{if(_0x31c05c==='list')await calculateList();else _0x31c05c===_0x264d65(0xb3)&&await calculateBruteForce();}}catch(_0x46a43b){showStatus('CALC\x20ERROR',!![]),console['error'](_0x46a43b);}isRunning=![],document[_0x264d65(0xc5)](_0x264d65(0xdf))[_0x264d65(0xcf)][_0x264d65(0xe0)](_0x264d65(0xb9)),document[_0x264d65(0xc5)](_0x264d65(0x11d))[_0x264d65(0xcf)][_0x264d65(0xdb)](_0x264d65(0xb9));}async function calculateSingle(){const _0x22404a=_0x577023,_0x1aa8dd=document[_0x22404a(0xc5)]('seed')[_0x22404a(0xbb)],_0x3bd101=getCoordinates();if(!_0x1aa8dd){markError(_0x22404a(0xba)),showStatus('INVALID\x20INPUT',!![]);return;}if(!_0x3bd101){showStatus(_0x22404a(0xb5),!![]);return;}const _0x3bbcdc=[];for(let _0x20e457=0x0;_0x20e457<_0x3bd101[_0x22404a(0x100)]&&isRunning;_0x20e457++){const {x:_0x24ead1,z:_0x73340c}=_0x3bd101[_0x20e457],_0x54c7b5=await getHeight(_0x1aa8dd,_0x24ead1,_0x73340c);_0x3bbcdc[_0x22404a(0xd5)]({'x':_0x24ead1,'z':_0x73340c,'y':_0x54c7b5}),updateProgress(_0x20e457+0x1,_0x3bd101[_0x22404a(0x100)]);if(_0x20e457%0xa===0x0)await new Promise(_0x2c9282=>setTimeout(_0x2c9282,0x1));}isRunning&&(addSeedResult(_0x1aa8dd,_0x3bbcdc),showStatus(_0x22404a(0x114)+_0x3bbcdc[_0x22404a(0x100)]+_0x22404a(0xe7)));}async function calculateList(){const _0x5d504b=_0x577023;if(seedList[_0x5d504b(0x100)]===0x0){showStatus('LOAD\x20SEED\x20LIST\x20FIRST',!![]);return;}const _0x1c581b=document[_0x5d504b(0xc5)](_0x5d504b(0xe3))['value'],_0x17516e=parseInt(document['getElementById'](_0x5d504b(0xb0))[_0x5d504b(0xbb)]),_0x2722a7=getCoordinates();if(isNaN(_0x17516e)){markError(_0x5d504b(0xb0)),showStatus(_0x5d504b(0xb5),!![]);return;}if(!_0x2722a7){showStatus(_0x5d504b(0xb5),!![]);return;}let _0x1c6800=seedList['length']*_0x2722a7['length'],_0x43c3d9=0x0;for(let _0x275295=0x0;_0x275295<seedList[_0x5d504b(0x100)]&&isRunning;_0x275295++){const _0x3fc9fc=seedList[_0x275295],_0x465c3b=[];for(let _0x5b0a77=0x0;_0x5b0a77<_0x2722a7[_0x5d504b(0x100)]&&isRunning;_0x5b0a77++){const {x:_0x23b597,z:_0x4248cc}=_0x2722a7[_0x5b0a77],_0x34ce9e=await getHeight(_0x3fc9fc,_0x23b597,_0x4248cc);_0x43c3d9++,checkThreshold(_0x34ce9e,_0x1c581b,_0x17516e)&&_0x465c3b[_0x5d504b(0xd5)]({'x':_0x23b597,'z':_0x4248cc,'y':_0x34ce9e}),updateProgress(_0x43c3d9,_0x1c6800,_0x5d504b(0xc8)+(_0x275295+0x1)+'/'+seedList[_0x5d504b(0x100)]),_0x43c3d9%0x32===0x0&&await new Promise(_0x315e1a=>setTimeout(_0x315e1a,0x1));}_0x465c3b[_0x5d504b(0x100)]>0x0&&addSeedResult(_0x3fc9fc,_0x465c3b);}isRunning&&showStatus(seedResults[_0x5d504b(0x12e)]>0x0?'FOUND\x20'+seedResults[_0x5d504b(0x12e)]+_0x5d504b(0xb7):_0x5d504b(0x102));}async function calculateBruteForce(){const _0x48b4e6=_0x577023,_0x29b8f4=parseInt(document[_0x48b4e6(0xc5)](_0x48b4e6(0x11b))[_0x48b4e6(0xbb)]),_0xd38468=document[_0x48b4e6(0xc5)](_0x48b4e6(0xe3))[_0x48b4e6(0xbb)],_0x22648f=parseInt(document[_0x48b4e6(0xc5)]('threshold')[_0x48b4e6(0xbb)]),_0x3fdd8e=getCoordinates();if(isNaN(_0x29b8f4)){markError(_0x48b4e6(0x11b)),showStatus(_0x48b4e6(0xb5),!![]);return;}if(isNaN(_0x22648f)){markError(_0x48b4e6(0xb0)),showStatus(_0x48b4e6(0xb5),!![]);return;}if(!_0x3fdd8e){showStatus('INVALID\x20INPUT',!![]);return;}let _0x2ffb77=_0x29b8f4,_0x3ba06b=0x0;while(isRunning){const _0x522ebb=[];for(let _0x3dd3a3=0x0;_0x3dd3a3<_0x3fdd8e[_0x48b4e6(0x100)]&&isRunning;_0x3dd3a3++){const {x:_0x5795cc,z:_0x4f29a1}=_0x3fdd8e[_0x3dd3a3],_0x3d512a=await getHeight(_0x2ffb77[_0x48b4e6(0xe6)](),_0x5795cc,_0x4f29a1);_0x3ba06b++,checkThreshold(_0x3d512a,_0xd38468,_0x22648f)&&_0x522ebb['push']({'x':_0x5795cc,'z':_0x4f29a1,'y':_0x3d512a}),updateProgress(_0x3dd3a3+0x1,_0x3fdd8e[_0x48b4e6(0x100)],_0x48b4e6(0xc8)+_0x2ffb77),_0x3ba06b%0x64===0x0&&await new Promise(_0x5b82bd=>setTimeout(_0x5b82bd,0x1));}_0x522ebb[_0x48b4e6(0x100)]>0x0&&addSeedResult(_0x2ffb77['toString'](),_0x522ebb),_0x2ffb77++;}}function _0x3527(){const _0x54ab9f=['mode','target','singleCoordInputs','getElementById','zMax','centerZ','SEED\x20','removeChild','writeText','.txt','list','dragleave','name','classList','10LqUtzf','free','split','memory','world_new','push','status-text\x20error','TXT\x20OR\x20CSV\x20FILE\x20ONLY','progressText','message','seedListInputs','add','files','282646KbZJPT','wasmDropZone','calculateBtn','remove','zMin','preventDefault','operator','280960VQJyfH','body','toString','\x20COORDS','change','LOADED\x20','rangeCoordInputs','clipboard','wasmFile','.csv','multinoisebiomesource_new','progressBar','querySelectorAll','contains','<div\x20class=\x22coord-list\x22>','\x20SEEDS','<div\x20class=\x22seed-title\x22\x20onclick=\x22copyToClipboard(\x27','.info-btn','1488675TVHgsY','results','fromString','Instance','/tp\x20','progressFill','arrayBuffer','toggle','none','set','length','high','NO\x20MATCHES','9nOJUOY','13524335mqhDMm','commonInputs','width','style','bruteForceInputs','statusText','low','561112MhbuWi','copy','map','sqrt','__wbg_multinoisebiomesource_free','</div>','single','101479GMRvMT','center','COMPLETE:\x20','radius','textContent','buffer','trim','multinoisebiomesource_get_surface_area','active','startSeed','<div\x20class=\x22coord-item\x22\x20onclick=\x22copyToClipboard(\x27','stopBtn','2095884NTHSsH','LOADING...','querySelector','error','xMin','__wbg_world_free','dropText','has','ptr','DOMContentLoaded','appendChild','addEventListener','.wasm','endsWith','catch','enhancedNoCaves','size','textarea','status-text','324nTUWLC','range','loaded','className','dragover','coordMode','clear','display','compile','execCommand','createBiomeProvider','centerX','<div\x20class=\x22seed-result\x22>','drag-over','xMax','click','drop','seedListFile','STOPPED','select','centerCoordInputs','</div></div>','threshold','innerHTML','READY','bruteforce','4PpzVpv','INVALID\x20INPUT','getSurfaceArea','\x20MATCHING\x20SEEDS','disabled','hidden','seed','value','createElement','largeBiomes','Long','unsigned','mainInputs','ERROR:\x20'];_0x3527=function(){return _0x54ab9f;};return _0x3527();}function stopCalc(){const _0x16109e=_0x577023;isRunning=![],showStatus(_0x16109e(0xac));}function showError(_0x4f4b48){showStatus(_0x4f4b48,!![]);}function toggleInfo(){const _0x366912=_0x577023,_0x95e0c6=document['getElementById']('infoContent');_0x95e0c6[_0x366912(0xcf)][_0x366912(0xfd)](_0x366912(0x11a));}
+let wasmModule = null;
+let cb = null;
+let provider = null;
+let currentSeed = null;
+let seedList = [];
+let isRunning = false;
+let seedResults = new Map();
+
+document.addEventListener('DOMContentLoaded', () => {
+    const wasmFile = document.getElementById('wasmFile');
+    const dropZone = document.getElementById('wasmDropZone');
+
+    wasmFile.addEventListener('change', handleWasmFile);
+    document.getElementById('mode').addEventListener('change', updateInputs);
+    document.getElementById('coordMode').addEventListener('change', updateCoordInputs);
+    document.getElementById('seedListFile').addEventListener('change', handleSeedListFile);
+    document.getElementById('calculateBtn').addEventListener('click', calculate);
+    document.getElementById('stopBtn').addEventListener('click', stopCalc);
+    document.querySelector('.info-btn').addEventListener('click', toggleInfo);
+
+    dropZone.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        dropZone.classList.add('drag-over');
+    });
+
+    dropZone.addEventListener('dragleave', () => {
+        dropZone.classList.remove('drag-over');
+    });
+
+    dropZone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        dropZone.classList.remove('drag-over');
+        const files = e.dataTransfer.files;
+        if (files.length > 0 && files[0].name.endsWith('.wasm')) {
+            wasmFile.files = files;
+            handleWasmFile({ target: { files } });
+        }
+    });
+
+    document.addEventListener('click', (event) => {
+        const infoContent = document.getElementById('infoContent');
+        const infoBtn = document.querySelector('.info-btn');
+        if (!infoBtn.contains(event.target) && !infoContent.contains(event.target)) {
+            infoContent.classList.remove('active');
+        }
+    });
+});
+
+async function handleWasmFile(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    if (!file.name.endsWith('.wasm')) {
+        showError('WASM FILE ONLY');
+        return;
+    }
+
+    const status = document.getElementById('wasmStatus');
+    const dropText = document.getElementById('dropText');
+    status.textContent = 'LOADING...';
+
+    try {
+        const buffer = await file.arrayBuffer();
+        wasmModule = await WebAssembly.compile(buffer);
+        cb = createCb(wasmModule);
+        status.textContent = 'READY';
+        dropText.textContent = file.name;
+        document.getElementById('wasmDropZone').classList.add('loaded');
+        document.getElementById('mainInputs').classList.remove('hidden');
+        updateInputs();
+    } catch (error) {
+        status.textContent = 'ERROR: ' + error.message;
+        console.error(error);
+    }
+}
+
+async function handleSeedListFile(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    if (!file.name.endsWith('.txt') && !file.name.endsWith('.csv')) {
+        showError('TXT OR CSV FILE ONLY');
+        return;
+    }
+
+    const status = document.getElementById('seedListStatus');
+    status.textContent = 'LOADING...';
+
+    try {
+        const text = await file.text();
+        seedList = text.split('\n')
+            .map(line => line.trim())
+            .filter(line => line);
+        status.textContent = 'LOADED ' + seedList.length + ' SEEDS';
+        updateInputs();
+    } catch (error) {
+        status.textContent = 'ERROR: ' + error.message;
+        console.error(error);
+    }
+}
+
+function updateInputs() {
+    const mode = document.getElementById('mode').value;
+
+    document.getElementById('seedListInputs').classList.toggle('hidden', mode !== 'list');
+    document.getElementById('bruteForceInputs').classList.toggle('hidden', mode !== 'bruteforce');
+    document.getElementById('commonInputs').classList.toggle('hidden', mode !== 'single');
+    document.getElementById('coordinateInputs').classList.remove('hidden');
+    document.getElementById('thresholdInputs').classList.toggle('hidden', mode === 'single');
+
+    updateCoordInputs();
+}
+
+function updateCoordInputs() {
+    const mode = document.getElementById('mode').value;
+    const coordMode = document.getElementById('coordMode').value;
+
+    if (mode === 'single') {
+        document.getElementById('coordMode').value = 'single';
+        document.getElementById('coordMode').disabled = true;
+        document.getElementById('singleCoordInputs').classList.remove('hidden');
+        document.getElementById('rangeCoordInputs').classList.add('hidden');
+        document.getElementById('centerCoordInputs').classList.add('hidden');
+    } else {
+        document.getElementById('coordMode').disabled = false;
+        document.getElementById('singleCoordInputs').classList.toggle('hidden', coordMode !== 'single');
+        document.getElementById('rangeCoordInputs').classList.toggle('hidden', coordMode !== 'range');
+        document.getElementById('centerCoordInputs').classList.toggle('hidden', coordMode !== 'center');
+    }
+}
+
+function createCb(wasmModule) {
+    class Long {
+        constructor(low, high, unsigned = false) {
+            this.low = low | 0;
+            this.high = high | 0;
+            this.unsigned = !!unsigned;
+        }
+
+        static fromString = (str) => {
+            const bigInt = BigInt(str);
+            return new Long(
+                Number(bigInt & 0xffffffffn),
+                Number(bigInt >> 0x20n)
+            );
+        };
+    }
+
+    const imports = {
+        __wbindgen_placeholder__: {
+            __wbindgen_json_parse: () => 0,
+            __wbindgen_object_drop_ref: () => { },
+            __wbindgen_json_serialize: () => { },
+            __wbindgen_throw: () => { }
+        }
+    };
+
+    const instance = new WebAssembly.Instance(wasmModule, imports).exports;
+    const getMemory = () => new Int32Array(instance.memory.buffer);
+
+    class World {
+        constructor(seedLow, seedHigh, dimension, version, largeBiomes, biomeSize) {
+            this.ptr = instance.world_new(
+                seedLow, seedHigh, dimension, version,
+                largeBiomes != null, largeBiomes || 0, biomeSize
+            );
+        }
+
+        free = () => {
+            if (this.ptr) {
+                instance.__wbg_world_free(this.ptr);
+                this.ptr = 0;
+            }
+        };
+    }
+
+    class BiomeProvider {
+        constructor(world) {
+            this.ptr = instance.multinoisebiomesource_new(world.ptr);
+        }
+
+        getSurfaceArea(x, z, width, height, blockSize, heightType, method) {
+            const stackPtr = instance.__wbindgen_add_to_stack_pointer(-16);
+
+            const heightTypes = {
+                oceanFloor: 2,
+                worldSurface: 1,
+                caveDepth: 3,
+                bottom: 4,
+                depth0: 5
+            };
+
+            const methods = {
+                fastApproximate: 1,
+                enhancedNoCaves: 2,
+                enhanced: 3,
+                topmostAccurate: 4
+            };
+
+            instance.multinoisebiomesource_get_surface_area(
+                stackPtr, this.ptr, x, z, width, height, blockSize,
+                heightTypes[heightType] || 2,
+                methods[method] || 2
+            );
+
+            const memory = getMemory();
+            const ptr = memory[stackPtr / 4];
+            const len = memory[stackPtr / 4 + 1];
+            const result = new Int32Array(instance.memory.buffer, ptr, len).slice();
+
+            instance.__wbindgen_free(ptr, len * 4, 4);
+            instance.__wbindgen_add_to_stack_pointer(16);
+
+            return result;
+        }
+
+        free = () => {
+            if (this.ptr) {
+                instance.__wbg_multinoisebiomesource_free(this.ptr);
+                this.ptr = 0;
+            }
+        };
+    }
+
+    return {
+        Long: Long,
+        createBiomeProvider: ({ seed, version, config }) => {
+            const world = new World(
+                seed.low, seed.high, 2, version,
+                config.largeBiomes, config.biomeSize
+            );
+            const provider = new BiomeProvider(world);
+
+            return {
+                getSurfaceArea: (...args) => provider.getSurfaceArea(...args),
+                free: () => provider.free()
+            };
+        }
+    };
+}
+
+async function getHeight(seed, x, z) {
+    if (currentSeed !== seed) {
+        provider?.free();
+        provider = cb.createBiomeProvider({
+            version: 0x27e2,
+            config: {},
+            seed: cb.Long.fromString(seed)
+        });
+        currentSeed = seed;
+    }
+
+    const chunkX = x >> 2;
+    const chunkZ = z >> 2;
+    const heights = new Int32Array(
+        provider.getSurfaceArea(
+            chunkX, chunkZ, 1, 1, 1, 'oceanFloor', 'enhancedNoCaves'
+        ).buffer
+    );
+
+    return heights[0];
+}
+
+function checkThreshold(value, operator, threshold) {
+    switch (operator) {
+        case '>': return value > threshold;
+        case '<': return value < threshold;
+        case '=': return value === threshold;
+        default: return false;
+    }
+}
+
+function clearErrors() {
+    document.querySelectorAll('input.error, select.error').forEach(el => {
+        el.classList.remove('error');
+    });
+}
+
+function markError(elementId) {
+    const element = document.getElementById(elementId);
+    if (element) {
+        element.classList.add('error');
+    }
+}
+
+function getCoordinates() {
+    clearErrors();
+    const coordMode = document.getElementById('coordMode').value;
+
+    if (coordMode === 'single') {
+        const x = parseInt(document.getElementById('x').value);
+        const z = parseInt(document.getElementById('z').value);
+        
+        if (isNaN(x)) {
+            markError('x');
+            return null;
+        }
+        if (isNaN(z)) {
+            markError('z');
+            return null;
+        }
+        
+        return [{ x, z }];
+    } else if (coordMode === 'range') {
+        const xMin = parseInt(document.getElementById('xMin').value);
+        const xMax = parseInt(document.getElementById('xMax').value);
+        const zMin = parseInt(document.getElementById('zMin').value);
+        const zMax = parseInt(document.getElementById('zMax').value);
+        const stepSize = parseInt(document.getElementById('stepSize').value) || 16;
+
+        let hasError = false;
+        if (isNaN(xMin)) { markError('xMin'); hasError = true; }
+        if (isNaN(xMax)) { markError('xMax'); hasError = true; }
+        if (isNaN(zMin)) { markError('zMin'); hasError = true; }
+        if (isNaN(zMax)) { markError('zMax'); hasError = true; }
+        
+        if (hasError) return null;
+
+        const coords = [];
+        for (let x = xMin; x <= xMax; x += stepSize) {
+            for (let z = zMin; z <= zMax; z += stepSize) {
+                coords.push({ x, z });
+            }
+        }
+        return coords;
+    } else if (coordMode === 'center') {
+        const centerX = parseInt(document.getElementById('centerX').value);
+        const centerZ = parseInt(document.getElementById('centerZ').value);
+        const radius = parseInt(document.getElementById('radius').value) || 100;
+        const stepSize = parseInt(document.getElementById('centerStepSize').value) || 16;
+
+        let hasError = false;
+        if (isNaN(centerX)) { markError('centerX'); hasError = true; }
+        if (isNaN(centerZ)) { markError('centerZ'); hasError = true; }
+        
+        if (hasError) return null;
+
+        const coords = [];
+        for (let x = centerX - radius; x <= centerX + radius; x += stepSize) {
+            for (let z = centerZ - radius; z <= centerZ + radius; z += stepSize) {
+                const distance = Math.sqrt((x - centerX) ** 2 + (z - centerZ) ** 2);
+                if (distance <= radius) {
+                    coords.push({ x, z });
+                }
+            }
+        }
+        return coords;
+    }
+
+    return null;
+}
+
+function updateProgress(current, total, text = '') {
+    const percent = (current / total) * 100;
+    document.getElementById('progressFill').style.width = percent + '%';
+    document.getElementById('progressText').textContent = text || `${current}/${total} (${percent.toFixed(1)}%)`;
+    document.getElementById('statusText').textContent = '';
+    document.getElementById('statusText').className = 'status-text';
+    document.getElementById('progressBar').style.display = 'block';
+}
+
+function showStatus(text, isError = false) {
+    document.getElementById('progressBar').style.display = 'none';
+    document.getElementById('progressText').textContent = '';
+    const statusEl = document.getElementById('statusText');
+    statusEl.textContent = text;
+    statusEl.className = isError ? 'status-text error' : 'status-text';
+}
+
+function addSeedResult(seed, coords) {
+    if (!seedResults.has(seed)) {
+        seedResults.set(seed, []);
+    }
+    seedResults.get(seed).push(...coords);
+    updateResultsDisplay();
+}
+
+function updateResultsDisplay() {
+    const resultsDiv = document.getElementById('results');
+    let html = '';
+
+    for (const [seed, coords] of seedResults) {
+        html += `<div class="seed-result">`;
+        html += `<div class="seed-title" onclick="copyToClipboard('${seed}')">${seed}</div>`;
+        html += `<div class="coord-list">`;
+
+        for (const coord of coords) {
+            const tpCommand = `/tp ${coord.x} ${coord.y} ${coord.z}`;
+            html += `<div class="coord-item" onclick="copyToClipboard('${tpCommand}')">`;
+            html += `(${coord.x}, ${coord.z}) y${coord.y}`;
+            html += `</div>`;
+        }
+
+        html += `</div></div>`;
+    }
+
+    resultsDiv.innerHTML = html;
+}
+
+function copyToClipboard(text) {
+    navigator.clipboard.writeText(text).catch(() => {
+        const textArea = document.createElement('textarea');
+        textArea.value = text;
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+    });
+}
+
+async function calculate() {
+    if (!cb) {
+        showStatus('UPLOAD WASM FIRST', true);
+        return;
+    }
+
+    const mode = document.getElementById('mode').value;
+    isRunning = true;
+    seedResults.clear();
+
+    document.getElementById('calculateBtn').classList.add('hidden');
+    document.getElementById('stopBtn').classList.remove('hidden');
+    document.getElementById('results').innerHTML = '';
+
+    try {
+        if (mode === 'single') {
+            await calculateSingle();
+        } else if (mode === 'list') {
+            await calculateList();
+        } else if (mode === 'bruteforce') {
+            await calculateBruteForce();
+        }
+    } catch (error) {
+        showStatus('CALC ERROR', true);
+        console.error(error);
+    }
+
+    isRunning = false;
+    document.getElementById('calculateBtn').classList.remove('hidden');
+    document.getElementById('stopBtn').classList.add('hidden');
+}
+
+async function calculateSingle() {
+    const seed = document.getElementById('seed').value;
+    const coords = getCoordinates();
+
+    if (!seed) {
+        markError('seed');
+        showStatus('INVALID INPUT', true);
+        return;
+    }
+
+    if (!coords) {
+        showStatus('INVALID INPUT', true);
+        return;
+    }
+
+    const results = [];
+    for (let i = 0; i < coords.length && isRunning; i++) {
+        const { x, z } = coords[i];
+        const height = await getHeight(seed, x, z);
+        results.push({ x, z, y: height });
+
+        updateProgress(i + 1, coords.length);
+        if (i % 10 === 0) await new Promise(resolve => setTimeout(resolve, 1));
+    }
+
+    if (isRunning) {
+        addSeedResult(seed, results);
+        showStatus(`COMPLETE: ${results.length} COORDS`);
+    }
+}
+
+async function calculateList() {
+    if (seedList.length === 0) {
+        showStatus('LOAD SEED LIST FIRST', true);
+        return;
+    }
+
+    const operator = document.getElementById('operator').value;
+    const threshold = parseInt(document.getElementById('threshold').value);
+    const coords = getCoordinates();
+
+    if (isNaN(threshold)) {
+        markError('threshold');
+        showStatus('INVALID INPUT', true);
+        return;
+    }
+
+    if (!coords) {
+        showStatus('INVALID INPUT', true);
+        return;
+    }
+
+    let totalChecks = seedList.length * coords.length;
+    let checked = 0;
+
+    for (let i = 0; i < seedList.length && isRunning; i++) {
+        const seed = seedList[i];
+        const matches = [];
+
+        for (let j = 0; j < coords.length && isRunning; j++) {
+            const { x, z } = coords[j];
+            const height = await getHeight(seed, x, z);
+            checked++;
+
+            if (checkThreshold(height, operator, threshold)) {
+                matches.push({ x, z, y: height });
+            }
+
+            updateProgress(checked, totalChecks, `SEED ${i + 1}/${seedList.length}`);
+
+            if (checked % 50 === 0) {
+                await new Promise(resolve => setTimeout(resolve, 1));
+            }
+        }
+
+        if (matches.length > 0) {
+            addSeedResult(seed, matches);
+        }
+    }
+
+    if (isRunning) {
+        showStatus(seedResults.size > 0 ? `FOUND ${seedResults.size} MATCHING SEEDS` : 'NO MATCHES');
+    }
+}
+
+async function calculateBruteForce() {
+    const startSeed = parseInt(document.getElementById('startSeed').value);
+    const operator = document.getElementById('operator').value;
+    const threshold = parseInt(document.getElementById('threshold').value);
+    const coords = getCoordinates();
+
+    if (isNaN(startSeed)) {
+        markError('startSeed');
+        showStatus('INVALID INPUT', true);
+        return;
+    }
+
+    if (isNaN(threshold)) {
+        markError('threshold');
+        showStatus('INVALID INPUT', true);
+        return;
+    }
+
+    if (!coords) {
+        showStatus('INVALID INPUT', true);
+        return;
+    }
+
+    let currentSeed = startSeed;
+    let coordsChecked = 0;
+
+    while (isRunning) {
+        const matches = [];
+
+        for (let i = 0; i < coords.length && isRunning; i++) {
+            const { x, z } = coords[i];
+            const height = await getHeight(currentSeed.toString(), x, z);
+            coordsChecked++;
+
+            if (checkThreshold(height, operator, threshold)) {
+                matches.push({ x, z, y: height });
+            }
+
+            updateProgress(i + 1, coords.length, `SEED ${currentSeed}`);
+
+            if (coordsChecked % 100 === 0) {
+                await new Promise(resolve => setTimeout(resolve, 1));
+            }
+        }
+
+        if (matches.length > 0) {
+            addSeedResult(currentSeed.toString(), matches);
+        }
+
+        currentSeed++;
+    }
+}
+
+function stopCalc() {
+    isRunning = false;
+    showStatus('STOPPED');
+}
+
+function showError(text) {
+    showStatus(text, true);
+}
+
+function toggleInfo() {
+    const infoContent = document.getElementById('infoContent');
+    infoContent.classList.toggle('active');
+}
